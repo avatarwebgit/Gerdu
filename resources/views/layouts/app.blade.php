@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'پروژه مدیریت کاربران')</title>
+    <title>@yield('title', 'گردو')</title>
     <!-- استفاده از استایل‌های Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -11,7 +11,7 @@
 <div class="container mt-5">
     <!-- هدر (Header) -->
     <div class="mb-3">
-        <h1>@yield('header', 'مدیریت کاربران')</h1>
+        <h1>@yield('header', 'گردو ')</h1>
     </div>
 
     <!-- محتوای صفحه -->

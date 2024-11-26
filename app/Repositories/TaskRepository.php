@@ -1,18 +1,34 @@
 <?php
-
 namespace App\Repositories;
 
 use App\Models\Task;
 
 class TaskRepository
 {
-    public function createTask($data)
+    public function all()
+    {
+        return Task::all();
+    }
+
+    public function create(array $data)
     {
         return Task::create($data);
     }
 
-    public function getTasksByModule($moduleId)
+    public function update(Task $task, array $data)
     {
-        return Task::where('module_id', $moduleId)->get();
+        $task->update($data);
+        return $task;
+    }
+
+    public function delete(Task $task)
+    {
+        $task->delete();
+        return $task;
+    }
+
+    public function find($id)
+    {
+        return Task::findOrFail($id);
     }
 }
