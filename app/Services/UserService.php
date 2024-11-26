@@ -13,8 +13,32 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    public function registerUser($data)
+    public function listUsers()
     {
-        return $this->userRepository->createUser($data);
+        return $this->userRepository->all();
+    }
+
+    public function getUser($id)
+    {
+        return $this->userRepository->find($id);
+    }
+
+    public function createUser(array $data)
+    {
+        $data['password'] = bcrypt($data['password']);
+        return $this->userRepository->create($data);
+    }
+
+    public function updateUser($id, array $data)
+    {
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        return $this->userRepository->update($id, $data);
+    }
+
+    public function deleteUser($id)
+    {
+        return $this->userRepository->delete($id);
     }
 }
