@@ -6,52 +6,99 @@ use App\Models\Module;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
+
 {
+
     public function index()
+
     {
-        return Module::all();
+
+        $modules = Module::all();
+
+        return view('modules.index', compact('modules'));
+
     }
+
+
+    public function create()
+
+    {
+
+        return view('modules.create');
+
+    }
+
 
     public function store(Request $request)
+
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
+
+        $request->validate([
+
+            'name' => 'required',
+
+            'price' => 'required|numeric',
+
+            'is_active' => 'boolean',
+
         ]);
 
-        $module = Module::create([
-            'name' => $validated['name'],
-            'price' => $validated['price'],
-            'is_active' => (bool)$request->is_active,
+
+        Module::create($request->all());
+
+        return redirect()->route('modules.index')->with('success', 'Module created successfully.');
+
+    }
+
+
+    public function show(Module $module)
+
+    {
+
+        return view('modules.show', compact('module'));
+
+    }
+
+
+    public function edit(Module $module)
+
+    {
+
+        return view('modules.edit', compact('module'));
+
+    }
+
+
+    public function update(Request $request, Module $module)
+
+    {
+
+        $request->validate([
+
+            'name' => 'required',
+
+            'price' => 'required|numeric',
+
+            'is_active' => 'boolean',
+
         ]);
 
-        return response()->json($module, 201);
+
+        $module->update($request->all());
+
+        return redirect()->route('modules.index')->with('success', 'Module updated successfully.');
+
     }
 
-    public function show($id)
+
+    public function destroy(Module $module)
+
     {
-        return Module::findOrFail($id);
-    }
 
-    public function update(Request $request, $id)
-    {
-        $module = Module::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'string|max:255',
-            'price' => 'numeric|min:0',
-        ]);
-
-        $module->update($validated);
-
-        return response()->json($module);
-    }
-
-    public function destroy($id)
-    {
-        $module = Module::findOrFail($id);
         $module->delete();
 
-        return response()->noContent();
+        return redirect()->route('modules.index')->with('success', 'Module deleted successfully.');
+
     }
+
 }
