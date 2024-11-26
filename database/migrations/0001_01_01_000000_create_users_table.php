@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('cellphone');
             $table->text('address');
-            $table->integer('national_code');
+            $table->string('national_code');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->rememberToken();
             $table->timestamps();
