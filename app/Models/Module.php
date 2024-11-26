@@ -10,4 +10,10 @@ class Module extends Model
     use HasFactory;
 
     protected $fillable = ['name','price', 'is_active'];
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 }

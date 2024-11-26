@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->enum('status', ['pending', 'in-progress', 'completed'])->default('pending');
+            $table->unsignedBigInteger('module_id');
             $table->timestamps();
+
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
+
         });
     }
 
